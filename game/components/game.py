@@ -3,6 +3,7 @@ import pygame
 from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, DEFAULT_TYPE
 from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager import EnemyManager
+from game.components.enems.enem_manager import EnemManager
 
 class Game:
     def __init__(self):
@@ -17,6 +18,8 @@ class Game:
         self.y_pos_bg = 0
         self.player = Spaceship()
         self.enemies = EnemyManager()
+        self.enems = EnemManager()
+        
 
     def run(self):
         # Game loop: events - update - draw
@@ -37,6 +40,7 @@ class Game:
         user_input = pygame.key.get_pressed()
         self.player.update(user_input)
         self.enemies.update()
+        self.enems.update()
 
     def draw(self):
         self.clock.tick(FPS)
@@ -44,6 +48,7 @@ class Game:
         self.draw_background()
         self.player.draw(self.screen)
         self.enemies.draw(self.screen)
+        self.enems.draw(self.screen)
         pygame.display.update()
         # pygame.display.flip()
 

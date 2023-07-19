@@ -2,26 +2,26 @@ import pygame
 import random
 from pygame.sprite import Sprite
 
-from game.utils.constants import ENEMY_1, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import ENEMY_2, SCREEN_HEIGHT, SCREEN_WIDTH
 
-class Enemy(Sprite):
-    ENEMY_WIDTH = 40
-    ENEMY_HEIGHT = 60
-    Y_POS = 0
-    X_POS_RANGE = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
-    SPEED_ON_Y = 1
-    SPEED_ON_X = 10
+class Enem(Sprite):
+    ENEM_WIDTH = 40
+    ENEM_HEIGHT = 60
+    Y_POS = 2
+    X_POS_RANGE = [20, 120, 220, 320, 420, 520, 620, 720, 820, 920]
+    SPEED_ON_Y = 5
+    SPEED_ON_X = 5
     MOVES = { 0: 'left', 1: 'right' }
 
     def __init__(self):
-        self.image = ENEMY_1
-        self.image = pygame.transform.scale(self.image, (self.ENEMY_WIDTH, self.ENEMY_HEIGHT))
+        self.image = ENEMY_2
+        self.image = pygame.transform.scale(self.image, (self.ENEM_WIDTH, self.ENEM_HEIGHT))
         self.rect = self.image.get_rect(midtop = (random.choice(self.X_POS_RANGE), self.Y_POS))
         self.direction = self.MOVES[random.randint(0, 1)]
         self.movement_count = 0
-        self.moves_before_change = random.randint(20, 50)
+        self.moves_before_change = random.randint(20, 60)
 
-    def update(self, enemies):
+    def update(self, enems):
         self.rect.y += self.SPEED_ON_Y
 
         if self.direction == self.MOVES[0]:
@@ -32,7 +32,7 @@ class Enemy(Sprite):
         self.handle_direction()
 
         if self.rect.top > SCREEN_HEIGHT:
-            enemies.remove(self)
+            enems.remove(self)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
