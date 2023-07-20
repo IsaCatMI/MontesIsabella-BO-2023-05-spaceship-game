@@ -6,6 +6,9 @@ class BulletManager:
         self.enemy_bullets = []
 
     def update(self, game):
+        for bullet in self.player_bullets:
+            bullet.update(self.player_bullets)
+
         for bullet in self.enemy_bullets:
             bullet.update(self.enemy_bullets)
 
@@ -15,6 +18,9 @@ class BulletManager:
                 break
     
     def draw(self, screen):
+        for bullet in self.player_bullets:
+            bullet.draw(screen)
+
         for bullet in self.enemy_bullets:
             bullet.draw(screen)
 
