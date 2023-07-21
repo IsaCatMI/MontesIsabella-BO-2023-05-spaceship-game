@@ -1,5 +1,5 @@
-import pygame
 import random
+
 from game.components.enemies.enemy import Enemy
 from game.utils.constants import ENEMY_1, ENEMY_2, ENEMY_3
 
@@ -7,8 +7,8 @@ class EnemyManager:
     def __init__(self):
         self.enemies = []
         self.enemy_images = [ENEMY_1, ENEMY_2, ENEMY_3]
-
-    def update (self, game):
+    
+    def update(self, game):
         self.add_enemy()
 
         for enemy in self.enemies:
@@ -26,3 +26,6 @@ class EnemyManager:
 
             enemy = Enemy(image, speed_on_x, speed_on_y)
             self.enemies.append(enemy)
+
+    def reset(self):
+        self.enemies = []

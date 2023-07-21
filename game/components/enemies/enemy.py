@@ -2,7 +2,7 @@ import pygame
 import random
 from pygame.sprite import Sprite
 
-from game.utils.constants import ENEMY_1, SCREEN_HEIGHT, SCREEN_WIDTH
+from game.utils.constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from game.components.bullets.bullet import Bullet
 
 class Enemy(Sprite):

@@ -6,8 +6,8 @@ from game.components.bullets.bullet import Bullet
 
 # la clase Spaceship va a heredar de la clase Sprite
 class Spaceship(Sprite):
-    SPACESHIP_WIDTH = 40
-    SPACESHIP_HEIGHT = 60
+    SPACESHIP_WIDTH = 50
+    SPACESHIP_HEIGHT = 70
     SPACESHIP_POS_X = SCREEN_WIDTH / 2
     SPACESHIP_POS_Y = 500
 
@@ -26,11 +26,9 @@ class Spaceship(Sprite):
             self.rect.y -= 10
         elif user_input[pygame.K_DOWN] and self.rect.bottom < SCREEN_HEIGHT:
             self.rect.y += 10
-        self.shoot(game.bullet_manager)
-        self.rect.y += self.speed_on_y
 
         if user_input[pygame.K_SPACE]:
-           self.move_left()
+            self.shoot(game.bullet_manager)
     
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -46,8 +44,5 @@ class Spaceship(Sprite):
             self.rect.right = SCREEN_WIDTH + self.SPACESHIP_WIDTH
 
     def shoot(self, bullet_manager):
-        bala = Bullet(self.rect.centerx, self.rect.top)
-        bala.add(bala)
-       
-
-    
+        bullet = Bullet(self)
+        bullet_manager.add_bullet(bullet)
