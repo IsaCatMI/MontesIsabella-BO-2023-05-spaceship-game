@@ -28,7 +28,7 @@ class Menu:
                 game.run()
     
     def reset_screen(self, screen):
-        screen.fill('White')
+        screen.fill('Red')
     
     def update_message(self, message):
         self.text = self.font.render(message, False, 'Black')

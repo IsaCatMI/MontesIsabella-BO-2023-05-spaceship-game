@@ -20,10 +20,11 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 0
         self.death_counter = 0
+        self.max_score = 0
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
-        self.menu = Menu(self.screen, 'Press any button to start')
+        self.menu = Menu(self.screen, 'Press any button to start')       
 
     def execute(self):
         self.running = True
@@ -36,6 +37,7 @@ class Game:
         self.score = 0
         self.bullet_manager.reset()
         self.enemy_manager.reset()
+        self.player.reset()
         # Game loop: events - update - draw
         self.playing = True
         while self.playing:
@@ -82,7 +84,11 @@ class Game:
         self.menu.reset_screen(self.screen)
 
         if self.death_counter > 0:
-            self.menu.update_message('Game Over')
+            if self.score > self.max_score:
+                self.max_score=self.score
+            else:
+                self.max_score=self.max_score
+            self.menu.update_message(f'Game Over Score: {self.score} Max Score: {self.max_score} Total Deaths: {self.death_counter}')
 
             icon = pygame.transform.scale((ICON), (80, 120))
             self.screen.blit(icon, ((SCREEN_WIDTH / 2) - 40, (SCREEN_HEIGHT / 2) - 150))
@@ -101,3 +107,6 @@ class Game:
         text = font.render(f'Score: {self.score}', False, 'White')
         text_rect = text.get_rect(topright = (SCREEN_WIDTH - 30, 30))
         self.screen.blit(text, text_rect)
+
+
+  

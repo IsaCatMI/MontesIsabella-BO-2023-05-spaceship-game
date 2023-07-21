@@ -1,9 +1,10 @@
 import pygame
+from game.utils.constants import SPACESHIP, SCREEN_WIDTH, SCREEN_HEIGHT
 
 class BulletManager:
     def __init__(self):
         self.player_bullets = []
-        self.enemy_bullets = []
+        self.enemy_bullets = []  
     
     def update(self, game):
         for bullet in self.enemy_bullets:
