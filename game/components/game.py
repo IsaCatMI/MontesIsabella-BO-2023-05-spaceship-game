@@ -1,10 +1,11 @@
 import pygame
 
-from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE
+from game.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS, FONT_STYLE, DEFAULT_TYPE
 from game.components.spaceship import Spaceship
 from game.components.enemies.enemy_manager import EnemyManager
 from game.components.bullets.bullet_manager import BulletManager
 from game.components.menu import Menu
+from game.components.power_ups.power_up_manager import PowerUpManager
 
 class Game:
     def __init__(self):
@@ -24,7 +25,8 @@ class Game:
         self.player = Spaceship()
         self.enemy_manager = EnemyManager()
         self.bullet_manager = BulletManager()
-        self.menu = Menu(self.screen, 'Press any button to start')       
+        self.menu = Menu(self.screen, 'Press any button to start') 
+        self.power_up_manager = PowerUpManager()      
 
     def execute(self):
         self.running = True
@@ -38,7 +40,7 @@ class Game:
         self.bullet_manager.reset()
         self.enemy_manager.reset()
         self.player.reset()
-        # Game loop: events - update - draw
+        self.power_up_manager.reset()
         self.playing = True
         while self.playing:
             self.events()
@@ -55,6 +57,7 @@ class Game:
         self.player.update(user_input, self)
         self.enemy_manager.update(self)
         self.bullet_manager.update(self)
+        self.power_up_manager.update(self)
 
     def draw(self):
         self.clock.tick(FPS)
@@ -63,6 +66,7 @@ class Game:
         self.player.draw(self.screen)
         self.enemy_manager.draw(self.screen)
         self.bullet_manager.draw(self.screen)
+        self.power_up_manager.draw(self.screen)
         self.draw_score()
         pygame.display.update()
         # pygame.display.flip()
@@ -108,5 +112,18 @@ class Game:
         text_rect = text.get_rect(topright = (SCREEN_WIDTH - 30, 30))
         self.screen.blit(text, text_rect)
 
+def draw_power_up_time(self):
+        if self.player.has_power_up:
+            time_to_show = round((self.player.power_up_time_up - pygame.time.get_ticks()) / 1000, 2)
+
+            if time_to_show >= 0:
+                font = pygame.font.Font(FONT_STYLE, 30)
+                text = font.render(f'{self.player.power_up_type.capitalize()} is enabled for {time_to_show}', False, 'White')
+                text_rect = text.get_rect(center = (SCREEN_WIDTH / 2, 50))
+                self.screen.blit(text, text_rect)
+            else:
+                self.player.has_power_up = False
+                self.player.power_up_type = DEFAULT_TYPE
+                self.player.set_image()
 
   
