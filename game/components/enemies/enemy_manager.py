@@ -2,6 +2,7 @@ import random
 
 from game.components.enemies.enemy import Enemy
 from game.utils.constants import ENEMY_1, ENEMY_2, ENEMY_3
+from game.utils.constants import SHIELD_1_TYPE
 
 class EnemyManager:
     def __init__(self):
@@ -13,6 +14,10 @@ class EnemyManager:
 
         for enemy in self.enemies:
             enemy.update(self.enemies, game)
+
+        if game.player.power_up_type == SHIELD_1_TYPE:
+            self.enemies = []
+
 
     def draw(self, screen):
         for enemy in self.enemies:
